@@ -1,0 +1,8 @@
+{
+  "name": "NaijaCivic - Nigerian Civic Governance & Accountability Platform",
+  "description": "Direct, transparent civic accountability bridge connecting Nigerian citizens to Federal, 36 States + FCT, 774 LGAs, and Wards with automated verified data sync, emergency escalation, and budget tracking.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

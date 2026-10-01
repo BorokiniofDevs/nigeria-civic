@@ -1,0 +1,46 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --color-naija-green: #008751;
+    --color-naija-dark-green: #006038;
+    --color-naija-light-green: #e6f5ee;
+  }
+
+  body {
+    background-color: #ffffff;
+    color: #0f172a;
+    font-family: "Public Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    letter-spacing: -0.015em;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: "Public Sans", "Barlow", -apple-system, sans-serif;
+    letter-spacing: -0.025em;
+  }
+}
+
+/* Light refined scrollbars */
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #008751;
+}
+
+/* Subtle Nigeria map watermark background pattern */
+.nigeria-watermark-bg {
+  background-image: radial-gradient(#008751 0.75px, transparent 0.75px);
+  background-size: 24px 24px;
+  opacity: 0.25;
+}

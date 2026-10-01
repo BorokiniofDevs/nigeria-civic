@@ -1,0 +1,137 @@
+{
+  "entities": {
+    "Jurisdiction": {
+      "title": "Jurisdiction",
+      "description": "Geographic civic boundary in Nigeria (Federal, State, Senatorial, LGA, LCDA, Ward)",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "tier": {
+          "type": "string",
+          "enum": ["FEDERAL", "STATE", "SENATORIAL", "LGA", "LCDA", "WARD"]
+        },
+        "zone": {
+          "type": "string",
+          "enum": [
+            "North-West",
+            "North-East",
+            "North-Central",
+            "South-West",
+            "South-East",
+            "South-South",
+            "Federal Capital Territory"
+          ]
+        },
+        "parent_id": { "type": "string" },
+        "svg_map_url": { "type": "string" }
+      },
+      "required": ["id", "name", "tier"]
+    },
+    "OfficialProfile": {
+      "title": "OfficialProfile",
+      "description": "Public servant or elected civic leader profile in Nigeria",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "full_name": { "type": "string" },
+        "position_title": { "type": "string" },
+        "jurisdiction_id": { "type": "string" },
+        "sector": {
+          "type": "string",
+          "enum": ["SECURITY", "HEALTH", "INFRASTRUCTURE", "GOVERNANCE", "FINANCE"]
+        },
+        "public_phone": { "type": "string" },
+        "public_email": { "type": "string" },
+        "photo_url": { "type": "string" },
+        "citation_source": { "type": "string" },
+        "is_verified": { "type": "boolean" },
+        "last_synced_at": { "type": "string" }
+      },
+      "required": ["id", "full_name", "position_title", "jurisdiction_id", "sector"]
+    },
+    "ProfileUpdateRequest": {
+      "title": "ProfileUpdateRequest",
+      "description": "Staged update for public official profile extracted from automated search or citizen report",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "target_profile_id": { "type": "string" },
+        "requester_type": {
+          "type": "string",
+          "enum": ["AUTO_GOOGLE_SYNC", "GOVERNMENT_AIDE", "CITIZEN_REPORT"]
+        },
+        "proposed_data": { "type": "object" },
+        "citation_url": { "type": "string" },
+        "status": {
+          "type": "string",
+          "enum": ["PENDING", "APPROVED", "REJECTED"]
+        },
+        "created_at": { "type": "string" }
+      },
+      "required": ["id", "target_profile_id", "requester_type", "proposed_data", "status"]
+    },
+    "Incident": {
+      "title": "Incident",
+      "description": "Citizen logged civic issue or emergency alert pinned to a jurisdiction",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "jurisdiction_id": { "type": "string" },
+        "sector": { "type": "string" },
+        "title": { "type": "string" },
+        "description": { "type": "string" },
+        "media_urls": { "type": "array" },
+        "vote_count_local": { "type": "number" },
+        "vote_count_external": { "type": "number" },
+        "escalation_level": { "type": "number" },
+        "assigned_official_id": { "type": "string" },
+        "status": {
+          "type": "string",
+          "enum": ["SUBMITTED", "ESCALATED", "IN_PROGRESS", "RESOLVED"]
+        },
+        "created_at": { "type": "string" }
+      },
+      "required": ["id", "jurisdiction_id", "sector", "title", "status"]
+    },
+    "BudgetProject": {
+      "title": "BudgetProject",
+      "description": "Disbursed State/LGA project funds and line-item allocations for citizen oversight",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "title": { "type": "string" },
+        "jurisdiction_id": { "type": "string" },
+        "sector": { "type": "string" },
+        "allocated_amount_ngn": { "type": "number" },
+        "disbursed_amount_ngn": { "type": "number" },
+        "contractor_name": { "type": "string" },
+        "completion_percentage": { "type": "number" },
+        "status": { "type": "string" }
+      },
+      "required": ["id", "title", "jurisdiction_id", "allocated_amount_ngn"]
+    }
+  },
+  "firestore": {
+    "/jurisdictions/{jurisdictionId}": {
+      "schema": "Jurisdiction",
+      "description": "Hierarchical geographic administrative units"
+    },
+    "/official_profiles/{profileId}": {
+      "schema": "OfficialProfile",
+      "description": "Verified Nigerian public leadership directory"
+    },
+    "/profile_update_requests/{requestId}": {
+      "schema": "ProfileUpdateRequest",
+      "description": "Staging audit queue for automated sync and updates"
+    },
+    "/incidents/{incidentId}": {
+      "schema": "Incident",
+      "description": "Escalation pipeline for civic and emergency incidents"
+    },
+    "/budget_projects/{projectId}": {
+      "schema": "BudgetProject",
+      "description": "Open public budget allocations and physical progress audits"
+    }
+  }
+}

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nigeria Civic Intelligence — Lagos Map Prototype</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/maplibre-gl@4.7.1/dist/maplibre-gl.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/*INLINE:styles.css*/
+</style>
+</head>
+<body>
+
+<header>
+  <span class="wordmark">NIGERIA CIVIC INTELLIGENCE</span>
+  <span class="proto-tag">MAP PROTOTYPE</span>
+  <span class="sp"></span>
+  <span class="sample-badge">PROTOTYPE · CIVIC DATA IS SAMPLE</span>
+  <select id="stateSelect" aria-label="Jump to state">
+    <option value="ng">Nigeria — all states</option>
+    <option value="Lagos">Lagos</option>
+    <option value="Kano">Kano</option>
+    <option value="Rivers">Rivers</option>
+  </select>
+  <span id="stateLabel">Nigeria</span>
+</header>
+
+<nav id="crumbs" aria-label="Geographic breadcrumb"></nav>
+
+<main>
+  <aside id="rail">
+    <div class="grp">
+      <h4>LAYERS</h4>
+      <label class="lyr"><input type="checkbox" data-layer="boundaries" checked> Boundaries</label>
+      <label class="lyr"><input type="checkbox" data-layer="facilities" checked> Facilities</label>
+      <label class="lyr"><input type="checkbox" data-layer="projects" checked> Projects</label>
+      <label class="lyr"><input type="checkbox" data-layer="reports" checked> Reports</label>
+    </div>
+    <div class="grp">
+      <h4>LEGEND</h4>
+      <div class="legend"><span class="sw sw-fac"></span> Facility</div>
+      <div class="legend"><span class="sw sw-prj"></span> Project</div>
+      <div class="legend"><span class="sw sw-rep"></span> Citizen report</div>
+      <div class="legend"><span class="sw sw-lcda"></span> LCDA (illustrative)</div>
+    </div>
+    <div class="grp">
+      <h4>ABOUT</h4>
+      <button class="btn-ghost" id="provBtn">Data &amp; provenance</button>
+    </div>
+  </aside>
+
+  <div id="mapWrap">
+    <div id="map"></div>
+    <div class="map-note">Boundaries: GADM v4.1 · Civic content: labelled sample fixtures</div>
+  </div>
+
+  <section id="panel" aria-label="Geographic information panel">
+    <div id="panelBody"></div>
+  </section>
+</main>
+
+<div id="drawer" role="dialog" aria-label="Data and provenance">
+  <div class="drawer-in">
+    <h2>Data &amp; provenance</h2>
+    <p class="sub" style="color:var(--ink-2);font-size:13px;">What is real, what is fixture, and what the production backend will replace.</p>
+    <div class="sec"><div class="sec-h"><span>Real data in this prototype</span></div>
+      <dl class="kv">
+        <div><dt>Country &amp; state boundaries</dt><dd>GADM v4.1 (gadm.org)</dd></div>
+        <div><dt>Lagos LGA boundaries</dt><dd>GADM v4.1 — 20 LGAs</dd></div>
+        <div><dt>State LGA counts</dt><dd>GADM v4.1 (Lagos 20, Kano 44, Rivers 23)</dd></div>
+        <div><dt>Basemap</dt><dd>© OpenStreetMap contributors © CARTO</dd></div>
+      </dl>
+    </div>
+    <div class="sec"><div class="sec-h"><span>Labelled fixtures</span></div>
+      <dl class="kv">
+        <div><dt>All officials</dt><dd>Sample names — not real office-holders</dd></div>
+        <div><dt>Facilities, projects, reports</dt><dd>Sample records; positions illustrative</dd></div>
+        <div><dt>LCDA markers</dt><dd>Illustrative — official LCDA boundary data pending</dd></div>
+        <div><dt>State identity accents</dt><dd>Fixtures — official colours/emblems pending verified source</dd></div>
+        <div><dt>Civic brief</dt><dd>Sample text — not a real brief</dd></div>
+      </dl>
+    </div>
+    <div class="sec"><div class="sec-h"><span>Production path</span></div>
+      <p class="note">Fixtures implement the provider seam documented in DATA_CONTRACT.md. The PostGIS backend will serve the same shapes over /api/geo/* — no interaction rewrite needed.</p>
+    </div>
+    <button class="btn" id="drawerClose">Close</button>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
+<script>
+/*INLINE:geo*/
+</script>
+<script>
+/*INLINE:data/fixtures.js*/
+</script>
+<script>
+/*INLINE:app.js*/
+</script>
+</body>
+</html>

@@ -1,0 +1,35 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Read-only public civic records
+    match /jurisdictions/{jurisdictionId} {
+      allow read: if true;
+      allow write: if request.auth != null && request.auth.token.admin == true;
+    }
+
+    match /official_profiles/{profileId} {
+      allow read: if true;
+      allow write: if request.auth != null && request.auth.token.admin == true;
+    }
+
+    // Citizens and automated sync can submit update requests; audit is admin-only
+    match /profile_update_requests/{requestId} {
+      allow read: if true;
+      allow create: if true;
+      allow update, delete: if request.auth != null && request.auth.token.admin == true;
+    }
+
+    // Citizens can read and report incidents, vote on them
+    match /incidents/{incidentId} {
+      allow read: if true;
+      allow create: if request.resource.data.title is string && request.resource.data.jurisdiction_id is string;
+      allow update: if true; // Allows voting & status progression
+      allow delete: if request.auth != null && request.auth.token.admin == true;
+    }
+
+    match /budget_projects/{projectId} {
+      allow read: if true;
+      allow create, update: if request.auth != null;
+    }
+  }
+}
